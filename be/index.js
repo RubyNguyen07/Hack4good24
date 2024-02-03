@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require("body-parser");
 
-const review = require('./routes/review/review');
+const review = require('./routes/reviews/reviews');
 const app = express();
 
 
@@ -12,7 +12,7 @@ app.use(morgan('combined'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.use('/review', review)
+app.use('/reviews', review)
 
 app.get('/', (req, res) => {
     res.send("Hello I am working my friend Supabase <3");
