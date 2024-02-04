@@ -46,9 +46,8 @@ exports.getLevel = async (req, res) => {
 
 
 exports.postReview = async (req, res) => {
-    // console.log(req)
     const volunteerId = req.fields.id;
-    const token = req.params.token;
+    const token = x
     const file = req.files.file; 
 
     const {data: existingUser, error: userError} = await supabase
