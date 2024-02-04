@@ -9,7 +9,7 @@ export default function AdminLayout() {
   console.log("test", user?.publicMetadata);
 
   React.useEffect(() => {
-    if (user?.publicMetadata.role !== "admin") {
+    if (isLoaded && user?.publicMetadata.role !== "admin") {
       navigate("/sign-in");
     }
   }, []);

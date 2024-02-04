@@ -9,7 +9,7 @@ export default function ProfileLayout() {
   console.log("test", userId);
 
   React.useEffect(() => {
-    if (!userId) {
+    if (isLoaded && !userId) {
       navigate("/sign-in");
     }
   }, []);

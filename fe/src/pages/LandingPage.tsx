@@ -22,7 +22,7 @@ function LandingPage() {
           </Button>
           {user?.publicMetadata.role === "admin" && (
             <Button asChild>
-              <Link to="/manage">Admin Dashboard</Link>
+              <Link to="/admin">Admin Dashboard</Link>
             </Button>
           )}
         </SignedIn>

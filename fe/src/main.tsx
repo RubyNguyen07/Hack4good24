@@ -9,7 +9,7 @@ import SignUpPage from "./pages/SignUpPage";
 import ProfileLayout from "./layouts/ProfileLayout";
 import ProfilePage from "./pages/ProfilePage";
 import AdminLayout from "./layouts/AdminLayout";
-import CampaignMgmtPage from "./pages/CampaignMgmtPage";
+import AdminDashboardPage from "./pages/AdminDashboardPage";
 
 const router = createBrowserRouter([
   {
@@ -25,8 +25,8 @@ const router = createBrowserRouter([
       },
       {
         element: <AdminLayout />,
-        path: "/manage",
-        children: [{ path: "/manage", element: <CampaignMgmtPage /> }],
+        path: "/admin",
+        children: [{ path: "/admin", element: <AdminDashboardPage /> }],
       },
     ],
   },
