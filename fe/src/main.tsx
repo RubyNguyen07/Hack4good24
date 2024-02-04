@@ -8,6 +8,8 @@ import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import ProfileLayout from "./layouts/ProfileLayout";
 import ProfilePage from "./pages/ProfilePage";
+import AdminLayout from "./layouts/AdminLayout";
+import CampaignMgmtPage from "./pages/CampaignMgmtPage";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,11 @@ const router = createBrowserRouter([
         element: <ProfileLayout />,
         path: "/profile",
         children: [{ path: "/profile", element: <ProfilePage /> }],
+      },
+      {
+        element: <AdminLayout />,
+        path: "/manage",
+        children: [{ path: "/manage", element: <CampaignMgmtPage /> }],
       },
     ],
   },
