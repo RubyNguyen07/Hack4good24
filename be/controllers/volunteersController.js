@@ -94,7 +94,7 @@ exports.postReview = async (req, res) => {
                 campaignId: existingCampaign[0].id,
                 review: req.fields.review, 
                 rating: req.fields.rating, 
-                filepath: filePath
+                img: filePath
             }
         ])
         .select()
