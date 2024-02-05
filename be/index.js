@@ -6,6 +6,9 @@ const formidable = require('express-formidable');
 
 const review = require('./routes/reviews/reviews');
 const volunteer = require('./routes/volunteers/volunteers');
+const campaign = require('./routes/campaigns/campaigns');
+const coordinator = require('./routes/coordinators/coordinators');
+const statistics = require('./routes/statistics/statistics');
 const app = express();
 
 // using morgan for logs
@@ -16,6 +19,9 @@ app.use(bodyParser.json());
 
 app.use('/reviews', review);
 app.use('/volunteers', volunteer);
+app.use('/campaigns', campaign);
+app.use('/coordinators', coordinator);
+app.use('/statistics', statistics);
 
 app.get('/', (req, res) => {
     res.send("Hello I am working my friend Supabase <3");

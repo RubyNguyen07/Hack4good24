@@ -4,13 +4,12 @@ exports.getAllCampaign = async (req, res) => {
     const { data, error } = await supabase
         .from("campaigns")
         .select("*");
-    
     if (error) {
         return res.status(500).json({message: error.message});
     }
     
-    return res.status(200).json({reviews: data});
-};
+    return res.status(200).json(data);
+}
 
 exports.getCampaignById = async (req, res) => {
     const campaignId = req.params.id;
@@ -35,4 +34,4 @@ exports.getCampaignById = async (req, res) => {
         console.error('Error:', error.message);
         return res.status(500).json({ message: 'Internal Server Error' });
     }
-};
+}

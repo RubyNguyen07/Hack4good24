@@ -6,6 +6,6 @@ router.get('/profile/:id', coordinatorsController.getCoordinatorProfile);
 
 router.post('/campaigns', coordinatorsController.createCampaign);
 
-router.post('/campaigns/edit', coordinatorsController.editCampaign);
+router.post('/campaigns/edit/:campaignId', coordinatorsController.editCampaign);
 
 module.exports = router;

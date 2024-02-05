@@ -1,12 +1,5 @@
 const { supabase } = require("../config/supabaseClient");
 
-exports.coordinatorLogin = async () => {
-    let { data, error } = await supabase.auth.signInWithPassword({
-        email: 'someone@email.com',
-        password: 'lkSIeeMsdCxLvZEOkwCI'
-      })
-};
-
 exports.getCoordinatorProfile = async (req, res) => {
     const coordinatorId = req.params.id; //assume coord id given in request?
 
@@ -33,19 +26,23 @@ exports.getCoordinatorProfile = async (req, res) => {
 };
 
 exports.createCampaign = async (req, res) => {
-    const coordinatorId = req.fields.id;
-    //const token = req.params.token; 
-    const { name, capacity, description, exp_attained, token } = req.body;
+    const coordinatorId = req.params.id;
 
     try {
         const { data, error } = await supabase
         .from('campaigns')
         .insert([
-            { name: name, capacity: capacity, description: description, exp_attained: exp_attained, token: token },
+            { title: req.fields.title, 
+                description: req.fields.description,
+                date: req.fields.date, points: req.fields.points },
         ])
         .select()
+
+        if (error) {
+            return res.status(500).json({message: error.message});
+        }
         
-        return res.status(201).json({ campaign: createdCampaign });
+        return res.status(200).json({ campaign: data });
     } catch (error) {
         console.error('Error:', error.message);
         return res.status(500).json({ message: 'Internal Server Error' });
@@ -53,24 +50,26 @@ exports.createCampaign = async (req, res) => {
 };
 
 exports.editCampaign = async (req, res) => {
-    const coordinatorId = req.params.coordinatorId; 
-    const { id } = req.params; // Assuming campaign ID is provided in the request parameters
-    const { name, capacity, description, exp_attained, token } = req.body;
+    //const coordinatorId = req.params.coordinatorId; 
+    const id = req.params.campaignId; // Assuming campaign ID is provided in the request parameters
 
     const { data, error } = await supabase
         .from('campaigns')
-        .update({ name: name, capacity: capacity, description: description, exp_attained: exp_attained, token: token })
+        .update({ title: req.fields.title, 
+            description: req.fields.description,
+            date: req.fields.date, points: req.fields.points })
         .eq('id', id)
         .select()
         
-    if (error || !data) {
+    if (error) {
         console.error(error);
         return res.status(500).json({ message: 'Unable to edit campaign' });
     }
     if (data) {
-        console.log(data);
-        
+        console.log(data);   
+    } else {
+        return res.status(500).json({ message: 'Campaign does not exist' });
     }
 
-    return res.status(200).json({ campaign: editedCampaign });
+    return res.status(200).json({ campaign: data });
     };
