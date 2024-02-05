@@ -94,7 +94,7 @@ exports.postReview = async (req, res) => {
                 campaignId: existingCampaign[0].id,
                 review: req.fields.review, 
                 rating: req.fields.rating, 
-                filepath: filePath
+                img: filePath
             }
         ])
         .select()
@@ -119,5 +119,5 @@ exports.postReview = async (req, res) => {
         return res.status(500).json({message: updateExpError.message});
     }
     
-    return res.status(200).json({reviewId: review[0].id});
+    return res.status(200).json({message: "Review posted!"});
 }
