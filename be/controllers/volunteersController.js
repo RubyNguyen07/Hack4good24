@@ -46,9 +46,8 @@ exports.getLevel = async (req, res) => {
 
 
 exports.postReview = async (req, res) => {
-    const volunteerId = req.fields.id;
+    const volunteerId = req.body.id;
     const token = req.params.token;
-    const file = req.files.file; 
 
     const {data: existingUser, error: userError} = await supabase
         .from('volunteers')
@@ -77,14 +76,14 @@ exports.postReview = async (req, res) => {
         return res.status(400).json({message: "Campaign does not exist"});
     }
 
-    const fileExt = file.name.split('.').pop()
-    const fileName = `${Math.random()}.${fileExt}`
-    const filePath = `${fileName}`
+    // const fileExt = file.name.split('.').pop()
+    // const fileName = `${Math.random()}.${fileExt}`
+    // const filePath = `${fileName}`
 
-    const { error: uploadError } = await supabase.storage.from('reviewImages').upload(filePath, file)
-    if (uploadError) {
-        return res.status(500).json({message: uploadError.message});
-    }
+    // const { error: uploadError } = await supabase.storage.from('reviewImages').upload(filePath, file)
+    // if (uploadError) {
+    //     return res.status(500).json({message: uploadError.message});
+    // }
 
     const {data: review, error: reviewError} = await supabase
         .from('reviews')
@@ -92,9 +91,9 @@ exports.postReview = async (req, res) => {
             { 
                 volunteerId: volunteerId,
                 campaignId: existingCampaign[0].id,
-                review: req.fields.review, 
-                rating: req.fields.rating, 
-                img: filePath
+                review: req.body.review, 
+                rating: req.body.rating, 
+                img: req.body.img
             }
         ])
         .select()
