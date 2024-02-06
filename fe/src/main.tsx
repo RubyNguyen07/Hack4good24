@@ -35,7 +35,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "/review",
-            element: <ReviewPage />,
+            element: <div>404</div>,
           },
           { path: "/review/:token", element: <ReviewPage /> },
         ],
