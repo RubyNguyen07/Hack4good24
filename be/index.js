@@ -1,6 +1,5 @@
 const express = require("express");
 const morgan = require("morgan");
-const bodyParser = require("body-parser");
 const formidable = require("express-formidable");
 const cors = require("cors");
 
@@ -13,9 +12,9 @@ const app = express();
 
 // using morgan for logs
 app.use(morgan("combined"));
-app.use(formidable());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+// app.use(formidable());
+app.use(express.json());
+app.use(express.urlencoded());
 app.use(cors({ origin: "*" }));
 
 app.use("/reviews", review);
