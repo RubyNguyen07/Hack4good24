@@ -11,6 +11,7 @@ import ProfilePage from "./pages/ProfilePage";
 import AdminLayout from "./layouts/AdminLayout";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
 import ReviewPage from "./pages/ReviewPage";
+import ReviewLayout from "./layouts/ReviewLayout";
 
 const router = createBrowserRouter([
   {
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
         children: [{ path: "/admin", element: <AdminDashboardPage /> }],
       },
       {
-        element: <ProfileLayout />,
+        element: <ReviewLayout />,
         path: "/review",
         children: [
           {
