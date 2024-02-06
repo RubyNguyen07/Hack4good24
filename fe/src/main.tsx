@@ -32,7 +32,13 @@ const router = createBrowserRouter([
       {
         element: <ProfileLayout />,
         path: "/review",
-        children: [{ path: "/review/:token", element: <ReviewPage /> }],
+        children: [
+          {
+            path: "/review",
+            element: <ReviewPage />,
+          },
+          { path: "/review/:token", element: <ReviewPage /> },
+        ],
       },
     ],
   },
