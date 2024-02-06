@@ -1,4 +1,3 @@
-import React from "react";
 import reward1 from "@/assets/reward1.png";
 import reward2 from "@/assets/reward2.png";
 import { Card, CardFooter } from "../ui/card";
