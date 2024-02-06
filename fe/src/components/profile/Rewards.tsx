@@ -3,14 +3,13 @@ import reward1 from "@/assets/reward1.png";
 import reward2 from "@/assets/reward2.png";
 import { Card, CardFooter } from "../ui/card";
 import { Button } from "../ui/button";
+import { toast } from "sonner";
 
 type RewardData = {
   title: string;
   img: string;
   points: number;
 };
-
-const currentPoints = 800;
 
 const rewards: RewardData[] = [
   {
@@ -25,13 +24,13 @@ const rewards: RewardData[] = [
   },
 ];
 
-function Rewards() {
+function Rewards({ points }: { points: number }) {
   return (
     <div className="flex">
       <div className="flex-1 py-20">
-        <h2 className="text-6xl font-bold">Rewards</h2>
+        <h2 className="text-5xl font-bold">Rewards</h2>
         <p className="text-xl text-gray-500">
-          Current Point Balance: {currentPoints} points
+          Current Point Balance: {points} points
         </p>
       </div>
       <div className="flex gap-4 flex-1">
@@ -44,8 +43,11 @@ function Rewards() {
             </div>
             <CardFooter>
               <Button
-                disabled={currentPoints < reward.points}
+                disabled={points < reward.points}
                 className="w-full"
+                onClick={() =>
+                  toast.info("Please contact the admin to redeem this reward.")
+                }
               >
                 Redeem
               </Button>

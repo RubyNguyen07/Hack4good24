@@ -2,6 +2,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import { ClerkProvider } from "@clerk/clerk-react";
 import Footer from "@/components/Footer";
+import { Toaster } from "sonner";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -16,6 +17,7 @@ export default function RootLayout() {
       <Navbar />
       <main>
         <Outlet />
+        <Toaster />
       </main>
       <Footer />
     </ClerkProvider>

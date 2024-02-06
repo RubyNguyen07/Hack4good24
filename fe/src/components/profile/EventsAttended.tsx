@@ -1,61 +1,57 @@
 import moment from "moment";
-import event1 from "../../assets/event1.png";
-import event2 from "../../assets/event2.png";
 import { Card } from "../ui/card";
+import React from "react";
+import supabase from "@/lib/supabaseClient";
+import { useUser } from "@clerk/clerk-react";
+import { Badge } from "../ui/badge";
+import { ScrollArea } from "../ui/scroll-area";
 
 type EventData = {
   title: string;
+  description: string;
   date: string;
   img: string;
 };
 
-const events: EventData[] = [
-  {
-    title: "Workshop 1",
-    date: "2023-07-01",
-    img: event1,
-  },
-  {
-    title: "Workshop 2",
-    date: "2023-08-01",
-    img: event2,
-  },
-  {
-    title: "Workshop 3",
-    date: "2023-09-01",
-    img: event1,
-  },
-  {
-    title: "Workshop 4",
-    date: "2023-10-01",
-    img: event2,
-  },
-  {
-    title: "Workshop 5",
-    date: "2023-11-01",
-    img: event1,
-  },
-];
-
 function EventsAttended() {
+  const { user } = useUser();
+  const [events, setEvents] = React.useState<EventData[]>([]);
+
+  React.useEffect(() => {
+    const fetchEvents = async () => {
+      const { data, error } = await supabase
+        .from("reviews")
+        .select("campaigns(title, description, date, img)")
+        .eq("volunteerId", user?.id);
+      if (error) {
+        console.error(error);
+        return;
+      }
+      console.log(data);
+      setEvents(data.map((event) => event.campaigns as unknown as EventData));
+    };
+    fetchEvents();
+  }, []);
+
   return (
     <div className="flex">
       <div className="flex-1 py-20">
-        <h2 className="text-6xl font-bold">Events Attended</h2>
+        <h2 className="text-5xl font-bold">Events Attended</h2>
       </div>
-      <div className="flex flex-col gap-4 flex-1">
+      <ScrollArea className="flex-1 h-96">
         {events.map((event, index) => (
-          <Card key={index} className="flex gap-2 h-32">
+          <Card key={index} className="flex gap-2 h-32 mb-4">
             <img src={event.img} alt={event.title} className="h-full" />
-            <div className="p-4">
-              <h3 className="text-lg font-semibold">{event.title}</h3>
-              <p className="text-sm opacity-70">
-                Attended on {moment(event.date).calendar()}
-              </p>
+            <div className="p-4 w-full">
+              <div className="flex gap-2 items-center justify-between">
+                <h3 className="text-lg font-semibold">{event.title}</h3>
+                <Badge className="">{moment(event.date).calendar()}</Badge>
+              </div>
+              <p className="text-sm line-clamp-2 mt-2">{event.description}</p>
             </div>
           </Card>
         ))}
-      </div>
+      </ScrollArea>
     </div>
   );
 }

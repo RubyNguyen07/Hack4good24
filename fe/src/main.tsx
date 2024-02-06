@@ -10,6 +10,7 @@ import ProfileLayout from "./layouts/ProfileLayout";
 import ProfilePage from "./pages/ProfilePage";
 import AdminLayout from "./layouts/AdminLayout";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
+import ReviewPage from "./pages/ReviewPage";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,11 @@ const router = createBrowserRouter([
         element: <AdminLayout />,
         path: "/admin",
         children: [{ path: "/admin", element: <AdminDashboardPage /> }],
+      },
+      {
+        element: <ProfileLayout />,
+        path: "/review",
+        children: [{ path: "/review/:token", element: <ReviewPage /> }],
       },
     ],
   },

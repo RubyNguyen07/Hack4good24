@@ -8,8 +8,6 @@ type AchievementData = {
   points: number;
 };
 
-const currentPoints = 800;
-
 const achievements: AchievementData[] = [
   {
     title: "Attend 1 workshop",
@@ -23,20 +21,17 @@ const achievements: AchievementData[] = [
   },
 ];
 
-function Achievement() {
+function Achievement({ points }: { points: number }) {
   return (
     <div className="flex items-center">
       <div className="flex-1 py-20">
-        <h2 className="text-6xl font-bold">Achievements</h2>
+        <h2 className="text-5xl font-bold">Achievements</h2>
       </div>
       <div className="flex gap-4 flex-1">
         {achievements.map((achievement, index) => (
           <Card
             key={index}
-            className={cn(
-              "w-64",
-              currentPoints < achievement.points && "opacity-70"
-            )}
+            className={cn("w-64", points < achievement.points && "opacity-70")}
           >
             <img
               src={achievement.img}

@@ -1,73 +1,75 @@
-import moment from "moment";
 import React from "react";
 import { AxisOptions, Chart } from "react-charts";
+import axios from "axios";
 
-type VolunteerData = {
-  date: Date;
-  amount: number;
+type EventStatData = {
+  event: string;
+  totalparticipants: number;
 };
 
 function VolunteerRegistration() {
-  const data = [
+  const [eventStat, setEventStat] = React.useState<EventStatData[]>([]);
+
+  const eventData = [
     {
       label: "Participants",
-      data: [
-        {
-          date: new Date(2023, 7, 1),
-          amount: 58,
-        },
-        {
-          date: new Date(2023, 8, 1),
-          amount: 49,
-        },
-        {
-          date: new Date(2023, 9, 1),
-          amount: 61,
-        },
-        {
-          date: new Date(2023, 10, 1),
-          amount: 73,
-        },
-        {
-          date: new Date(2023, 11, 1),
-          amount: 75,
-        },
-        {
-          date: new Date(2024, 0, 1),
-          amount: 88,
-        },
-      ] as VolunteerData[],
+      data: eventStat.map(
+        (stat) =>
+          ({
+            event: stat.event,
+            totalparticipants: stat.totalparticipants,
+          } as EventStatData)
+      ),
     },
   ];
 
-  const primaryAxis = React.useMemo(
-    (): AxisOptions<VolunteerData> => ({
-      getValue: (datum) => moment(datum.date).format("MMM YYYY"),
+  const eventPrimaryAxis = React.useMemo(
+    (): AxisOptions<EventStatData> => ({
+      getValue: (datum) => datum.event,
     }),
     []
   );
 
-  const secondaryAxes = React.useMemo(
-    (): AxisOptions<VolunteerData>[] => [
+  const eventSecondaryAxes = React.useMemo(
+    (): AxisOptions<EventStatData>[] => [
       {
-        getValue: (datum) => datum.amount,
-        elementType: "line",
+        getValue: (datum) => datum.totalparticipants,
       },
     ],
     []
   );
 
+  React.useEffect(() => {
+    const fetchStatistics = async () => {
+      console.log(import.meta.env.BACKEND_URL);
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/statistics/totalEventParticipant`,
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      response.data.totalEventParticipant &&
+        setEventStat(response.data.totalEventParticipant);
+    };
+    fetchStatistics();
+  }, []);
+
   return (
     <div className="py-6">
       <h2 className="text-xl font-semibold mb-2">Participants Registration</h2>
       <div className="h-72">
-        <Chart
-          options={{
-            data,
-            primaryAxis,
-            secondaryAxes,
-          }}
-        />
+        {eventStat.length > 0 && (
+          <Chart
+            options={{
+              data: eventData,
+              primaryAxis: eventPrimaryAxis,
+              secondaryAxes: eventSecondaryAxes,
+            }}
+          />
+        )}
       </div>
     </div>
   );
