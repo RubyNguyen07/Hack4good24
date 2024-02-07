@@ -1,8 +1,9 @@
+import axios from "axios";
+import React from "react";
+import CountUp from "react-countup";
 import { Card } from "@/components/ui/card";
 import supabase from "@/lib/supabaseClient";
 import { TriangleUpIcon } from "@radix-ui/react-icons";
-import axios from "axios";
-import React from "react";
 
 type MaterialItem = {
   type: string;
@@ -12,7 +13,12 @@ type MaterialItem = {
 function OverallData() {
   const [participantCount, setParticipantCount] = React.useState(0);
   const [workshopCount, setWorkshopCount] = React.useState(0);
-  const [materials, setMaterials] = React.useState<MaterialItem[]>([]);
+  const [materials, setMaterials] = React.useState<MaterialItem[]>([
+    { type: "Plastic", totalQuantity: 50 },
+    { type: "Paper", totalQuantity: 50 },
+    { type: "Metal", totalQuantity: 50 },
+    { type: "Glass", totalQuantity: 50 },
+  ]);
   const [materialsLastMonth, setMaterialsLastMonth] = React.useState<
     MaterialItem[]
   >([]);
@@ -74,22 +80,40 @@ function OverallData() {
       <div className="flex gap-6">
         <Card className="p-6 flex-1 flex flex-col items-center justify-center">
           <h3 className="text-lg mb-6">Participants Registered</h3>
-          <div className="font-semibold text-6xl">{participantCount}</div>
+          <CountUp
+            className="font-semibold text-6xl"
+            start={0}
+            end={participantCount}
+            duration={2}
+          />
           <div className="text-base mt-4">
             <TriangleUpIcon className="inline-block w-6 h-6 text-green-500" />
-            <span className="opacity-70">
-              {participantCount} since last month
-            </span>
+            <CountUp
+              className="opacity-70"
+              start={0}
+              end={participantCount}
+              suffix=" since last month"
+              duration={2}
+            />
           </div>
         </Card>
         <Card className="p-6 flex-1 flex flex-col items-center justify-center">
           <h3 className="text-lg mb-6">Workshops Organized</h3>
-          <div className="font-semibold text-6xl">{workshopCount}</div>
+          <CountUp
+            className="font-semibold text-6xl"
+            start={0}
+            end={workshopCount}
+            duration={2}
+          />
           <div className="text-base mt-4">
             <TriangleUpIcon className="inline-block w-6 h-6 text-green-500" />
-            <span className="opacity-70">
-              {participantsLastMonth} for last 5 months
-            </span>
+            <CountUp
+              className="opacity-70"
+              start={0}
+              end={participantsLastMonth}
+              suffix=" for last 5 months"
+              duration={2}
+            />
           </div>
         </Card>
       </div>
@@ -97,16 +121,26 @@ function OverallData() {
         {materials.map((material, index) => (
           <Card key={index} className="p-6 w-full">
             <h3 className="text-sm mb-1">{material.type}</h3>
-            <div className="font-semibold text-2xl">
-              {material.totalQuantity}kg
-            </div>
+            <CountUp
+              className="font-semibold text-2xl"
+              start={0}
+              end={material.totalQuantity}
+              suffix="kg"
+              duration={2}
+            />
+
             <div className="text-xs">
               <TriangleUpIcon className="inline-block w-4 h-4 text-green-500" />
-              <span className="opacity-70">
-                {materialsLastMonth.find((m) => m.type === material.type)
-                  ?.totalQuantity || 0}
-                kg since last month
-              </span>
+              <CountUp
+                className="opacity-70"
+                start={0}
+                end={
+                  materialsLastMonth.find((m) => m.type === material.type)
+                    ?.totalQuantity || 0
+                }
+                duration={2}
+                suffix="kg for last 5 months"
+              />
             </div>
           </Card>
         ))}

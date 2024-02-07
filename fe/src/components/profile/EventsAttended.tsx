@@ -41,7 +41,11 @@ function EventsAttended() {
       <ScrollArea className="flex-1 h-96">
         {events.map((event, index) => (
           <Card key={index} className="flex gap-2 h-32 mb-4">
-            <img src={event.img} alt={event.title} className="h-full" />
+            <img
+              src={event.img}
+              alt={event.title}
+              className="h-full aspect-square object-cover"
+            />
             <div className="p-4 w-full">
               <div className="flex gap-2 items-center justify-between">
                 <h3 className="text-lg font-semibold">{event.title}</h3>

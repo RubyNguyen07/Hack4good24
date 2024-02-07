@@ -546,7 +546,9 @@ function ResourceSavedDialog({ event }: { event: EventData }) {
               )}
             />
             <DialogFooter>
-              <Button type="submit">Submit</Button>
+              <Button type="submit" disabled={form.formState.isSubmitting}>
+                Submit
+              </Button>
             </DialogFooter>
           </form>
         </Form>
