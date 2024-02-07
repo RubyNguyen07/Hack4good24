@@ -41,7 +41,6 @@ function VolunteerRegistration() {
 
   React.useEffect(() => {
     const fetchStatistics = async () => {
-      console.log(import.meta.env.BACKEND_URL);
       const response = await axios.get(
         `${import.meta.env.VITE_BACKEND_URL}/statistics/totalEventParticipant`,
         {

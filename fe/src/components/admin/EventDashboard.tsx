@@ -31,7 +31,7 @@ function EventDashboard() {
         console.error(error);
         return;
       }
-      console.log(data);
+      // console.log(data);
       setEvents(data as EventData[]);
     };
     fetchEvents();
@@ -42,7 +42,7 @@ function EventDashboard() {
 
     const supabase = await supabaseClient(token);
 
-    console.log(values);
+    // console.log(values);
     if (values.img.length === 0) {
       toast.error("Please upload an image");
       return;

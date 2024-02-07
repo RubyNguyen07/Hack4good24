@@ -45,7 +45,7 @@ function ParticipantDashboard() {
         console.error(error);
         return;
       }
-      console.log(data);
+      // console.log(data);
       setReviews(data);
     };
     fetchEvents();

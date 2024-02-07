@@ -8,7 +8,7 @@ import {
   CarouselPrevious,
 } from "../ui/carousel";
 import { StarFilledIcon } from "@radix-ui/react-icons";
-import { PenTool } from "lucide-react";
+import { UserCircleIcon } from "lucide-react";
 import supabase from "@/lib/supabaseClient";
 import moment from "moment";
 
@@ -167,7 +167,7 @@ function PastWorkshops() {
           {pastEvents.map((workshop, index) => (
             <CarouselItem key={index} className="">
               <Card className="p-4 flex gap-4">
-                <div className="w-64 h-64">
+                <div className="w-72 aspect-square">
                   <img
                     src={workshop.img}
                     alt={workshop.title}
@@ -177,23 +177,26 @@ function PastWorkshops() {
                 <div className="flex-1">
                   <h3 className="text-xl font-semibold">{workshop.title}</h3>
                   <p className=" line-clamp-3">{workshop.description}</p>
-                  <div className="grid grid-flow-col grid-rows-2 gap-2 mt-4">
+                  <div className="flex flex-wrap gap-5 mt-4">
                     {reviews
                       .filter((r) => r.campaignId === workshop.id)
+                      .slice(0, 6)
                       .map((review, index) => (
-                        <Card
-                          key={index}
-                          className="p-3 flex-1 flex justify-between"
-                        >
-                          <div className="text-sm text-ellipsis flex gap-2 items-center">
-                            <PenTool className="w-4 h-4" />
-                            {review.review}
-                          </div>
-                          <div className="flex items-center text-sm">
-                            <StarFilledIcon className="w-4 h-4 text-yellow-500 mx-1" />
-                            {review.rating}
-                          </div>
-                        </Card>
+                        <div className="flex gap-1 items-stretch basis-[47%]">
+                          <UserCircleIcon className="w-6 h-6 flex-none self-end" />
+                          <Card
+                            key={index}
+                            className="p-3 flex-1 flex justify-between"
+                          >
+                            <div className="text-sm line-clamp-3">
+                              {review.review}
+                            </div>
+                            <div className="flex items-center text-sm">
+                              <StarFilledIcon className="w-4 h-4 text-yellow-500 mx-1" />
+                              {review.rating}
+                            </div>
+                          </Card>
+                        </div>
                       ))}
                   </div>
                 </div>

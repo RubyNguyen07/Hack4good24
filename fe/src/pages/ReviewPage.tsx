@@ -42,7 +42,6 @@ function ReviewPage() {
         return;
       }
       if (data.length > 0) {
-        console.log("Review exist", data);
         setExist(true);
       }
     };

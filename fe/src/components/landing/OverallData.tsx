@@ -55,7 +55,6 @@ function OverallData() {
       const response = await axios.get(
         `${import.meta.env.VITE_BACKEND_URL}/statistics/totalMaterials`
       );
-      console.log(response.data);
       setMaterialsLastMonth(
         response.data.totalMaterials.map(
           // eslint-disable-next-line @typescript-eslint/no-explicit-any

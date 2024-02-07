@@ -6,7 +6,7 @@ export default function AdminLayout() {
   const { user, isLoaded } = useUser();
   const navigate = useNavigate();
 
-  console.log("test", user?.publicMetadata);
+  // console.log("test", user?.publicMetadata);
 
   React.useEffect(() => {
     if (isLoaded && user?.publicMetadata?.role !== "admin") {

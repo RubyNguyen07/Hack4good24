@@ -561,7 +561,7 @@ function ViewEventDialog({ event }: { event: EventData }) {
 
   async function onSubmit(values: z.infer<typeof eventFormSchema>) {
     let img = "";
-    console.log(values);
+    // console.log(values);
 
     if (values.img.length > 0) {
       const { data: uploadData, error: uploadError } = await uploadImage(
@@ -577,13 +577,6 @@ function ViewEventDialog({ event }: { event: EventData }) {
         import.meta.env.VITE_SUPABASE_URL
       }/storage/v1/object/public/images/${uploadData?.path}`;
     }
-
-    const { data } = await supabase
-      .from("campaigns")
-      .select()
-      .eq("id", event.id);
-    console.log(data);
-    console.log(values);
 
     const { error } = await supabase
       .from("campaigns")

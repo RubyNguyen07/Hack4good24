@@ -26,7 +26,7 @@ function MaterialSavedChart() {
       const response = await axios.get(
         `${import.meta.env.VITE_BACKEND_URL}/statistics/eventMaterial`
       );
-      console.log(response.data);
+      // console.log(response.data);
       response.data.totalMaterials &&
         setMaterialData(response.data.totalMaterials);
     };

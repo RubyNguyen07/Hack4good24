@@ -118,6 +118,7 @@ function EventForm({
                         selected={field.value}
                         onSelect={field.onChange}
                         disabled={(date) => date < new Date("1900-01-01")}
+                        defaultMonth={field.value || new Date()}
                         initialFocus
                       />
                     </PopoverContent>
@@ -162,11 +163,14 @@ function EventForm({
           />
           <DialogFooter className={cn(editMode ? "" : "hidden")}>
             <>
-              <Button type="submit">Save changes</Button>
+              <Button type="submit" disabled={form.formState.isSubmitting}>
+                Save changes
+              </Button>
               {setEditMode && (
                 <Button
                   variant="outline"
                   onClick={() => setEditMode && setEditMode(false)}
+                  disabled={form.formState.isSubmitting}
                 >
                   Cancel
                 </Button>

@@ -7,7 +7,7 @@ export default function ReviewLayout() {
   const { token } = useParams();
   const navigate = useNavigate();
 
-  console.log("test", userId);
+  // console.log("test", userId);
 
   React.useEffect(() => {
     if (isLoaded && !userId) {
