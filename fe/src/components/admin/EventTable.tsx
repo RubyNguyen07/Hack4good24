@@ -12,6 +12,7 @@ import {
   ArrowUpDown,
   ChevronLeftIcon,
   ChevronRightIcon,
+  CopyIcon,
   EyeIcon,
   QrCodeIcon,
   Trash2Icon,
@@ -63,6 +64,8 @@ import {
 import { Input } from "../ui/input";
 import supabase, { uploadImage } from "@/lib/supabaseClient";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 export type EventData = {
   id: string;
@@ -103,7 +106,11 @@ const columns: ColumnDef<EventData>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <div className="">{row.getValue("date")}</div>,
+    cell: ({ row }) => (
+      <div className="">
+        {moment(row.getValue("date")).format("DD MMM YYYY")}
+      </div>
+    ),
   },
   {
     accessorKey: "points",
@@ -265,20 +272,26 @@ function AttendanceQRDialog({ event }: { event: EventData }) {
             short review about the event.
           </DialogDescription>
         </DialogHeader>
-        <div className="flex flex-col items-center justify-center py-6 gap-4 underline">
-          <img
-            src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${attendanceLink}`}
-            alt="Attendance QR"
-          />
-          <a href={attendanceLink}>{attendanceLink}</a>
+        <div className="flex flex-col items-center justify-center py-6 gap-4 underline h-72">
+          <a
+            href={attendanceLink}
+            className="h-full p-4 shadow-lg transition-shadow rounded"
+          >
+            <img
+              src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${attendanceLink}`}
+              alt="Attendance QR"
+              className="h-full"
+            />
+          </a>
+          {/* <a href={attendanceLink}>{attendanceLink}</a> */}
         </div>
         <DialogFooter>
           <Button
             onClick={() => {
-              navigator.clipboard.writeText(`https://example.com`);
+              navigator.clipboard.writeText(attendanceLink);
             }}
           >
-            Copy Link
+            <CopyIcon className="h-4 w-4 mr-2"></CopyIcon> Copy Link
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -544,9 +557,11 @@ function ResourceSavedDialog({ event }: { event: EventData }) {
 
 function ViewEventDialog({ event }: { event: EventData }) {
   const [editMode, setEditMode] = React.useState(false);
+  const navigate = useNavigate();
 
   async function onSubmit(values: z.infer<typeof eventFormSchema>) {
     let img = "";
+    console.log(values);
 
     if (values.img.length > 0) {
       const { data: uploadData, error: uploadError } = await uploadImage(
@@ -587,7 +602,7 @@ function ViewEventDialog({ event }: { event: EventData }) {
     }
 
     toast.success("Event updated successfully");
-    window.location.reload();
+    navigate(0);
   }
 
   return (
@@ -614,8 +629,17 @@ function ViewEventDialog({ event }: { event: EventData }) {
 }
 
 function DeleteEventDialog({ event }: { event: EventData }) {
-  const onDelete = () => {
-    console.log("Deleting event", event);
+  const onDelete = async () => {
+    const { error } = await supabase
+      .from("campaigns")
+      .delete()
+      .eq("id", event.id);
+    if (error) {
+      console.error(error);
+      return;
+    }
+    toast.success("Event deleted successfully");
+    window.location.reload();
   };
   return (
     <AlertDialog>

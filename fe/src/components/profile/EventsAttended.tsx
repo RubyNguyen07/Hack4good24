@@ -45,7 +45,9 @@ function EventsAttended() {
             <div className="p-4 w-full">
               <div className="flex gap-2 items-center justify-between">
                 <h3 className="text-lg font-semibold">{event.title}</h3>
-                <Badge className="">{moment(event.date).calendar()}</Badge>
+                <Badge className="">
+                  {moment(event.date).format("DD/MM/YYYY")}
+                </Badge>
               </div>
               <p className="text-sm line-clamp-2 mt-2">{event.description}</p>
             </div>

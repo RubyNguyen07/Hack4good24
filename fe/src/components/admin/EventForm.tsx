@@ -163,12 +163,14 @@ function EventForm({
           <DialogFooter className={cn(editMode ? "" : "hidden")}>
             <>
               <Button type="submit">Save changes</Button>
-              <Button
-                variant="outline"
-                onClick={() => setEditMode && setEditMode(false)}
-              >
-                Cancel
-              </Button>
+              {setEditMode && (
+                <Button
+                  variant="outline"
+                  onClick={() => setEditMode && setEditMode(false)}
+                >
+                  Cancel
+                </Button>
+              )}
             </>
           </DialogFooter>
         </form>
