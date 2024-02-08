@@ -8,24 +8,35 @@ const volunteer = require("./routes/volunteers/volunteers");
 const campaign = require("./routes/campaigns/campaigns");
 const coordinator = require("./routes/coordinators/coordinators");
 const statistics = require("./routes/statistics/statistics");
+const user = require("./routes/user");
 const app = express();
+const router = express.Router();
 
 // using morgan for logs
-app.use(morgan("combined"));
-// app.use(formidable());
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(cors({ origin: "*" }));
+router.use(morgan("combined"));
+router.use(express.json());
+router.use(express.urlencoded());
+router.use(cors({ origin: "*" }));
 
-app.use("/reviews", review);
-app.use("/volunteers", volunteer);
-app.use("/campaigns", campaign);
-app.use("/coordinators", coordinator);
-app.use("/statistics", statistics);
+router.use("/reviews", review);
+router.use("/volunteers", volunteer);
+router.use("/campaigns", campaign);
+router.use("/coordinators", coordinator);
+router.use("/statistics", statistics);
+// router.use("/users", user);
 
-app.get("/", (req, res) => {
+router.get("/", (req, res) => {
   res.send("Hello I am working my friend Supabase <3");
 });
+
+app.use("/", router);
+app.use(
+  "/users",
+  morgan("combined"),
+  cors({ origin: "*" }),
+  express.raw({ type: "application/json" }),
+  user
+);
 
 app.listen(3000, () => {
   console.log(`> Ready on http://localhost:3000`);
