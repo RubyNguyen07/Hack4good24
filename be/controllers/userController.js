@@ -9,6 +9,7 @@ exports.webhook = async (req, res) => {
     const wh = new Webhook(process.env.WEBHOOK_SECRET);
     const evt = wh.verify(payloadString, svixHeaders);
     const { id } = evt.data;
+
     // Handle the webhooks
     const eventType = evt.type;
     if (eventType === "user.created") {
