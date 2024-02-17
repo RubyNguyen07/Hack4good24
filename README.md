@@ -46,10 +46,6 @@ We welcome contributions from the community to improve Green Action and make it 
 
 We value your feedback! If you have any suggestions, ideas, or issues to report, please don't hesitate to reach out to us. You can contact us by opening an issue on [GitHub](https://github.com/RubyNguyen07/Hack4good24).
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgments
 
 - Thanks to the organizers of Hack4Good24 for providing the opportunity to develop this project.
