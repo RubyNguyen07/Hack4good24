@@ -29,7 +29,7 @@ To get started with Green Action, simply visit [https://hack4good24-an59.vercel.
  ```
 4. Run the server on localhost:3000
   ```bash
- npm run devstart 
+ npm run start 
   ```
   
 ## Contributing
