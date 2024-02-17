@@ -5,7 +5,7 @@ Welcome to Green Action - your platform for environmental activism and awareness
 ## About
 
 Green Action is a project developed for [Hack4Good24](https://dsc.comp.nus.edu.sg/), aimed at enhancing engagement and measuring the environmental impact of volunteer activities. By integrating game mechanics, the platform motivates users through the point system, rewards, and achievements. 
-## Features
+## Tech Stack
 
 - **User Authentication**: Powered by Clerk, Green Action ensures secure user authentication and authorization for seamless access to the platform's features.
 - **Express.js & Node.js Backend**: The backend of Green Action is built using Express.js and Node.js, providing a robust and scalable server-side architecture.
