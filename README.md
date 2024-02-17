@@ -10,7 +10,7 @@ Green Action is a project developed for [Hack4Good24](https://dsc.comp.nus.edu.s
 - **User Authentication**: Powered by Clerk, Green Action ensures secure user authentication and authorization for seamless access to the platform's features.
 - **Express.js & Node.js Backend**: The backend of Green Action is built using Express.js and Node.js, providing a robust and scalable server-side architecture.
 - **React Frontend**: The frontend is developed with React, offering a dynamic and interactive user experience.
-- **Shadcn Integration**: Shadcn is integrated to enhance the platform's social features, enabling users to connect with like-minded individuals, form groups, and participate in discussions.
+- **Shadcn Integration**: Shadcn is integrated to enhance the platform's social features.
 - **Supabase Database**: Supabase is utilized as the database solution, offering real-time data synchronization, scalability, and security.
 - **Tailwind CSS Styling**: Tailwind CSS is used for styling, allowing for rapid development and customization with utility-first CSS classes.
 - **Vercel Deployment**: Green Action is deployed on Vercel, ensuring fast and reliable hosting with automatic deployments from Git.
