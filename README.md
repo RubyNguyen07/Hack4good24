@@ -32,7 +32,7 @@ We welcome contributions from the community to improve Green Action and make it 
 
 ## Feedback
 
-We value your feedback! If you have any suggestions, ideas, or issues to report, please don't hesitate to reach out to us. You can contact us through [our website](https://hack4good24-an59.vercel.app/contact) or by opening an issue on [GitHub](https://github.com/yourrepository).
+We value your feedback! If you have any suggestions, ideas, or issues to report, please don't hesitate to reach out to us. You can contact us by opening an issue on [GitHub](https://github.com/RubyNguyen07/Hack4good24).
 
 ## License
 
