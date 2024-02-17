@@ -24,7 +24,7 @@ To get started with Green Action, simply visit [https://hack4good24-an59.vercel.
 
 ## Set up instructions 
 1. Clone git repository 
-2. Create an .env file in the app's route containing fields as in the env_fields.txt
+2. Create an .env file in the app's route 
 3. Install dependencies
  ```bash
  npm install 
