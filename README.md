@@ -16,6 +16,8 @@ Green Action is a project developed for [Hack4Good24](https://dsc.comp.nus.edu.s
 - **Vercel Deployment**: Green Action is deployed on Vercel, ensuring fast and reliable hosting with automatic deployments from Git.
 - **Vite Build Tool**: Vite is used as the build tool for efficient development and optimized production builds.
 
+**For more in-depth information on our backend site**, simply look through the documentation at [be/README.md](be/README.md)
+
 ## Getting Started
 
 To get started with Green Action, simply visit [https://hack4good24-an59.vercel.app/](https://hack4good24-an59.vercel.app/) in your web browser. From there, you can sign up for an account, explore the platform's features, and take action for a greener planet!
