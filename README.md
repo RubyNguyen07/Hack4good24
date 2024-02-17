@@ -20,6 +20,18 @@ Green Action is a project developed for [Hack4Good24](https://dsc.comp.nus.edu.s
 
 To get started with Green Action, simply visit [https://hack4good24-an59.vercel.app/](https://hack4good24-an59.vercel.app/) in your web browser. From there, you can sign up for an account, explore the platform's features, and take action for a greener planet!
 
+## Set up instructions 
+1. Clone git repository 
+2. Create an .env file in the app's route containing fields as in the env_fields.txt
+3. Install dependencies
+ ```bash
+ npm install 
+ ```
+4. Run the server on localhost:3000
+  ```bash
+ npm run devstart 
+  ```
+  
 ## Contributing
 
 We welcome contributions from the community to improve Green Action and make it even more impactful. Whether it's fixing bugs, adding new features, or suggesting improvements, every contribution helps advance our mission of environmental activism and awareness. To contribute, please follow these steps:
