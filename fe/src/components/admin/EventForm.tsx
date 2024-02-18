@@ -21,7 +21,6 @@ import moment from "moment";
 import { Button } from "../ui/button";
 import { CalendarIcon } from "lucide-react";
 import { DialogFooter } from "../ui/dialog";
-import React from "react";
 
 export const eventFormSchema = z.object({
   title: z.string().min(1),
