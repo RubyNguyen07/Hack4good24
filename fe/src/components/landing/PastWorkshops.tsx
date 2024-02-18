@@ -11,6 +11,11 @@ import { StarFilledIcon } from "@radix-ui/react-icons";
 import { UserCircleIcon } from "lucide-react";
 import supabase from "@/lib/supabaseClient";
 import moment from "moment";
+import {
+  uniqueNamesGenerator,
+  adjectives,
+  animals,
+} from "unique-names-generator";
 
 type WorkshopData = {
   id: string;
@@ -21,7 +26,9 @@ type WorkshopData = {
 };
 
 type ReviewData = {
+  volunteerId: string;
   campaignId: string;
+  // name: string;
   rating: number;
   review: string;
 };
@@ -147,7 +154,8 @@ function PastWorkshops() {
     const fetchReviews = async () => {
       const { data, error } = await supabase
         .from("reviews")
-        .select("campaignId, rating, review");
+        .select("volunteerId, campaignId, rating, review");
+
       if (error) {
         console.error(error);
         return;
@@ -167,7 +175,7 @@ function PastWorkshops() {
           {pastEvents.map((workshop, index) => (
             <CarouselItem key={index} className="">
               <Card className="p-4 flex gap-4">
-                <div className="w-72 aspect-square">
+                <div className="w-32 aspect-square">
                   <img
                     src={workshop.img}
                     alt={workshop.title}
@@ -177,30 +185,42 @@ function PastWorkshops() {
                 <div className="flex-1">
                   <h3 className="text-xl font-semibold">{workshop.title}</h3>
                   <p className=" line-clamp-3">{workshop.description}</p>
-                  <div className="flex flex-wrap gap-5 mt-4">
-                    {reviews
-                      .filter((r) => r.campaignId === workshop.id)
-                      .slice(0, 6)
-                      .map((review, index) => (
-                        <div className="flex gap-1 items-stretch basis-[47%]">
-                          <UserCircleIcon className="w-6 h-6 flex-none self-end" />
-                          <Card
-                            key={index}
-                            className="p-3 flex-1 flex justify-between"
-                          >
-                            <div className="text-sm line-clamp-3">
-                              {review.review}
-                            </div>
-                            <div className="flex items-center text-sm">
-                              <StarFilledIcon className="w-4 h-4 text-yellow-500 mx-1" />
-                              {review.rating}
-                            </div>
-                          </Card>
-                        </div>
-                      ))}
-                  </div>
                 </div>
               </Card>
+              <div className=" grid grid-cols-3 gap-2 mt-3">
+                {reviews.filter((r) => r.campaignId === workshop.id).length ? (
+                  reviews
+                    .filter((r) => r.campaignId === workshop.id)
+                    .slice(0, 6)
+                    .map((review, index) => (
+                      <Card key={index} className="p-4">
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex gap-2 items-center">
+                            <UserCircleIcon className="w-4 h-4 flex-none" />
+                            <span className="text-sm font-semibold">
+                              {uniqueNamesGenerator({
+                                dictionaries: [adjectives, animals],
+                                length: 2,
+                                style: "capital",
+                                separator: " ",
+                                seed: review.volunteerId + review.campaignId,
+                              })}
+                            </span>
+                          </div>
+                          <div className="flex items-center text-sm gap-[2px]">
+                            <StarFilledIcon className="w-4 h-4 text-yellow-500" />
+                            {review.rating}
+                          </div>
+                        </div>
+                        <div className="text-sm line-clamp-3">
+                          {review.review}
+                        </div>
+                      </Card>
+                    ))
+                ) : (
+                  <div className="text-center col-span-3">No reviews yet</div>
+                )}
+              </div>
             </CarouselItem>
           ))}
         </CarouselContent>

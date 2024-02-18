@@ -36,7 +36,7 @@ function Achievement({ points }: { points: number }) {
             <img
               src={achievement.img}
               alt={achievement.title}
-              className="w-full"
+              className="w-full rounded-t-lg"
             />
             <div className="p-4">
               <h3 className="text-lg font-semibold">{achievement.title}</h3>

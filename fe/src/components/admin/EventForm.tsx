@@ -21,6 +21,7 @@ import moment from "moment";
 import { Button } from "../ui/button";
 import { CalendarIcon } from "lucide-react";
 import { DialogFooter } from "../ui/dialog";
+import React from "react";
 
 export const eventFormSchema = z.object({
   title: z.string().min(1),
@@ -136,12 +137,23 @@ function EventForm({
               <FormItem>
                 <FormLabel>Event Image</FormLabel>
                 <FormControl>
-                  <Input
-                    type="file"
-                    {...imgRef}
-                    accept="image/*"
-                    disabled={!editMode}
-                  />
+                  <div className="flex gap-2 items-end">
+                    <img
+                      src={event?.img}
+                      alt={event?.title}
+                      className={cn(
+                        "aspect-square flex-none basis-1 object-cover rounded-md w-40 h-40",
+                        editMode && "hidden"
+                      )}
+                    />
+                    <Input
+                      type="file"
+                      {...imgRef}
+                      accept="image/*"
+                      disabled={!editMode}
+                      className={cn(editMode || "hidden")}
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>

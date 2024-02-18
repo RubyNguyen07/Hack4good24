@@ -31,7 +31,7 @@ function LandingPage() {
             <Link to="/sign-up">Sign Up</Link>
           </Button>
           <Button asChild>
-            <Link to="/sign-in">Sign In</Link>
+            <Link to="/sign-in">Log In</Link>
           </Button>
         </SignedOut>
       </Hero>

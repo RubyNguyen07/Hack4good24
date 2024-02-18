@@ -35,7 +35,11 @@ function Rewards({ points }: { points: number }) {
       <div className="flex gap-4 flex-1">
         {rewards.map((reward, index) => (
           <Card key={index} className="w-64">
-            <img src={reward.img} alt={reward.title} className="w-full" />
+            <img
+              src={reward.img}
+              alt={reward.title}
+              className="w-full rounded-t-lg"
+            />
             <div className="p-4">
               <h3 className="text-lg font-semibold">{reward.title}</h3>
               <p className="text-sm opacity-70">{reward.points} points</p>
