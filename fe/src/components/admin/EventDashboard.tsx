@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { PlusIcon } from "lucide-react";
+import { DownloadIcon, PlusIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import EventForm, { eventFormSchema } from "./EventForm";
 import { z } from "zod";
@@ -16,6 +16,7 @@ import React from "react";
 import supabase, { supabaseClient, uploadImage } from "@/lib/supabaseClient";
 import { useAuth } from "@clerk/clerk-react";
 import { toast } from "sonner";
+import { CSVLink } from "react-csv";
 
 function EventDashboard() {
   const [events, setEvents] = React.useState<EventData[]>([]);
@@ -26,7 +27,7 @@ function EventDashboard() {
       const { data, error } = await supabase
         .from("campaigns")
         .select("id, title, description, img, date, points, token")
-        .order("date", { ascending: true });
+        .order("date", { ascending: false });
       if (error) {
         console.error(error);
         return;
@@ -80,6 +81,7 @@ function EventDashboard() {
         <div className="py-4 space-x-6 whitespace-nowrap w-full overflow-x-scroll">
           {events
             .filter((ev) => moment().isBefore(moment(ev.date)))
+            .reverse()
             .map((event, index) => (
               <Card key={index} className="w-72 inline-block align-top h-96">
                 <img
@@ -89,7 +91,9 @@ function EventDashboard() {
                 />
                 <div className="p-4">
                   <h3 className="text-lg font-semibold">{event.title}</h3>
-                  <p className="text-xs opacity-70">On {event.date}</p>
+                  <p className="text-xs opacity-70">
+                    {moment(event.date).fromNow()}
+                  </p>
                   <p className="text-sm mt-2 whitespace-normal line-clamp-6">
                     {event.description}
                   </p>
@@ -100,19 +104,41 @@ function EventDashboard() {
         <div className="py-4">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-3xl font-bold">All Events</h2>
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button aria-label="Create Event" size={"sm"}>
-                  <PlusIcon className={"h-4 w-4 mr-2"} /> Create Event
+            <div className="flex items-center gap-3">
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button aria-label="Create Event" size={"sm"}>
+                    <PlusIcon className={"h-4 w-4 mr-2"} /> Create Event
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="w-full max-w-lg sm:max-w-xl md:max-w-3xl lg:max-w-5xl">
+                  <DialogHeader>
+                    <DialogTitle>Create a new event</DialogTitle>
+                  </DialogHeader>
+                  <EventForm editMode={true} onSubmit={onEventCreate} />
+                </DialogContent>
+              </Dialog>
+              <CSVLink
+                data={events.map((e) => ({
+                  title: e.title,
+                  description: e.description,
+                  date: e.date,
+                  points: e.points,
+                  attendanceLink: `${window.location.origin}/review/${e.token}`,
+                }))}
+                filename="events.csv"
+              >
+                <Button
+                  aria-label="Export to CSV"
+                  variant={"outline"}
+                  size={"sm"}
+                  className="space-x-2"
+                >
+                  <DownloadIcon className="w-4 h-4" />{" "}
+                  <span>Export to CSV</span>
                 </Button>
-              </DialogTrigger>
-              <DialogContent className="w-full max-w-lg sm:max-w-xl md:max-w-3xl lg:max-w-5xl">
-                <DialogHeader>
-                  <DialogTitle>Create a new event</DialogTitle>
-                </DialogHeader>
-                <EventForm editMode={true} onSubmit={onEventCreate} />
-              </DialogContent>
-            </Dialog>
+              </CSVLink>
+            </div>
           </div>
           <EventTable events={events} />
         </div>

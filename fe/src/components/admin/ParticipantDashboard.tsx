@@ -16,6 +16,9 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import RatingDisplay from "../RatingDisplay";
+import { CSVLink } from "react-csv";
+import { DownloadIcon } from "lucide-react";
+import { Button } from "../ui/button";
 
 type ReviewData = {
   campaignId: string;
@@ -53,7 +56,25 @@ function ParticipantDashboard() {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold">All reviews from participants</h2>
+      <div className="flex justify-between items-center">
+        <h2 className="text-3xl font-bold">All reviews from participants</h2>
+        <CSVLink
+          data={reviews.map((r) => ({
+            createdAt: r.created_at,
+            userId: r.volunteerId,
+            campaignId: r.campaignId,
+            campaign: r.campaigns.title,
+            review: r.review,
+            rating: r.rating,
+            img: r.img,
+          }))}
+          filename={"reviews.csv"}
+        >
+          <Button className="space-x-2">
+            <DownloadIcon className="w-4 h-4" /> <span>Export to CSV</span>
+          </Button>
+        </CSVLink>
+      </div>
       <Accordion type="single" collapsible className="mt-6">
         {campaignTitles.map((title, index) => (
           <AccordionItem key={index} value={`item-${index}`}>

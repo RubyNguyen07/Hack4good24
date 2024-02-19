@@ -14,10 +14,10 @@ function OverallData() {
   const [participantCount, setParticipantCount] = React.useState(0);
   const [workshopCount, setWorkshopCount] = React.useState(0);
   const [materials, setMaterials] = React.useState<MaterialItem[]>([
-    { type: "Plastic", totalQuantity: 50 },
-    { type: "Paper", totalQuantity: 50 },
-    { type: "Metal", totalQuantity: 50 },
-    { type: "Glass", totalQuantity: 50 },
+    { type: "Plastic", totalQuantity: 0 },
+    { type: "Paper", totalQuantity: 0 },
+    { type: "Metal", totalQuantity: 0 },
+    { type: "Glass", totalQuantity: 0 },
   ]);
   const [materialsLastMonth, setMaterialsLastMonth] = React.useState<
     MaterialItem[]
@@ -28,6 +28,7 @@ function OverallData() {
     const participantPromise = supabase
       .from("volunteers")
       .select("*", { count: "exact", head: true });
+
     const workshopPromise = supabase
       .from("campaigns")
       .select("*", { count: "exact", head: true });
@@ -92,7 +93,7 @@ function OverallData() {
               className="opacity-70"
               start={0}
               end={participantCount}
-              suffix=" since last month"
+              suffix=" for last 5 months"
               duration={2}
             />
           </div>
