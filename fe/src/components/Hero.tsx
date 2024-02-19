@@ -1,4 +1,4 @@
-import heroImg from "../assets/hero.png";
+import heroImg from "../assets/hero.jpg";
 
 function Hero({
   title,
@@ -13,7 +13,7 @@ function Hero({
     <section className="relative h-52 flex flex-col items-center justify-center text-center text-white">
       <div className="video-docker absolute top-0 left-0 w-full h-full overflow-hidden">
         <img
-          className="min-w-full absolute object-cover object-bottom"
+          className="min-w-full absolute object-cover brightness-50"
           src={heroImg}
           alt="Hero Image"
         />
