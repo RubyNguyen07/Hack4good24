@@ -601,7 +601,7 @@ function ViewEventDialog({ event }: { event: EventData }) {
   }
 
   return (
-    <Dialog>
+    <Dialog onOpenChange={() => setEditMode(false)}>
       <DialogTrigger asChild>
         <Button variant={"ghost"} aria-label="View Event">
           <EyeIcon className={"h-4 w-4"}></EyeIcon>

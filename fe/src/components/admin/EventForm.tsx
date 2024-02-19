@@ -177,15 +177,6 @@ function EventForm({
               <Button type="submit" disabled={form.formState.isSubmitting}>
                 Save changes
               </Button>
-              {setEditMode && (
-                <Button
-                  variant="outline"
-                  onClick={() => setEditMode && setEditMode(false)}
-                  disabled={form.formState.isSubmitting}
-                >
-                  Cancel
-                </Button>
-              )}
             </>
           </DialogFooter>
         </form>
